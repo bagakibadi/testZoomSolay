@@ -28,7 +28,7 @@ export default {
       meetingNumber: "89779482681",
       passWord: "123456",
       role: 0,
-      signatureEndpoint: "http://localhost:4000",
+      signatureEndpoint: "http://zoom.kelaspintar.co.id:4000/",
       userEmail: "",
       userName: "Bagus Nur Solayman",
       // pass in the registrant's token if your meeting or webinar requires registration. More info here:
