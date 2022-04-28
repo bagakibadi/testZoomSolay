@@ -1,12 +1,30 @@
 <template>
-  <main>
-    <h1>Kelaspintar Meeting</h1>
+  <div class="bg-home">
 
     <!-- For Component View -->
-    <div id="meetingSDKElement">
-      <!-- Zoom Meeting SDK Component View Rendered Here -->
+    <div class="head-top">
+      <div class="d-flex">
+        <div class="d-flex">
+          <label class="mr-3" for="guru">Nama Guru :</label>
+          <p class="pl-3">Guru Solay</p>
+        </div>
+      </div>
     </div>
-  </main>
+    <div class="flex-zoom">
+      <div id="meetingSDKElement">
+        <!-- Zoom Meeting SDK Component View Rendered Here -->
+      </div>
+      <div class="participant-view">
+        <div class="row mx-0 py-3">
+          <div class="col-12" v-for="item in 3" :key="item.id">
+            <div class="w-100 camera-view">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -89,6 +107,40 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+#meetingSDKElement{
+  width: 75%;
+}
+.bg-home{
+  background: #7a796f;
+  padding: 50px;
+}
+.head-top{
+  border-radius: 12px;
+  padding: 30px;
+  width: 75%;
+  min-height: 200px;
+  background: white;
+}
+.flex-zoom{
+  display: flex;
+  justify-content: start;
+  margin-top: 30px;
+}
+.participant-view{
+  margin-left: 20px;
+  width: 20%;
+  min-height: 300px;
+  background: white;
+  border-radius: 12px;
+}
+.camera-view{
+  height: 100px;
+  background: #333;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+</style>
 <style>
 main {
   width: 70%;
