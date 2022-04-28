@@ -1,18 +1,122 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <main>
+    <h1>Kelaspintar Meeting</h1>
+
+    <!-- For Component View -->
+    <div id="meetingSDKElement">
+      <!-- Zoom Meeting SDK Component View Rendered Here -->
+    </div>
+  </main>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import axios from "axios";
+import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
+  name: 'HelloWorld',
+  created () {
+    this.getSignature()
+  },
+  data () {
+    return {
+      client: ZoomMtgEmbedded.createClient(),
+      // This Sample App has been updated to use SDK App type credentials https://marketplace.zoom.us/docs/guides/build/sdk-app
+      // sdkKey: "cwJtHDrb3heoCThTlBaKmaroh9zVrqxBTgLY",//bagus
+      sdkKey:"Jwdp8A1p7pur6gPlgugOPbkJhFqM4roRGOxl", //kp
+      // sdkKey:"7kn90dOqRDuLxujbNFM7Ew", //API KEY
+      meetingNumber: "89779482681",
+      passWord: "123456",
+      role: 0,
+      signatureEndpoint: "http://localhost:4000",
+      userEmail: "",
+      userName: "Bagus Nur Solayman",
+      // pass in the registrant's token if your meeting or webinar requires registration. More info here:
+      // Meetings: https://marketplace.zoom.us/docs/sdk/native-sdks/web/component-view/meetings#join-registered
+      // Webinars: https://marketplace.zoom.us/docs/sdk/native-sdks/web/component-view/webinars#join-registered
+      registrantToken: ''
+    }
+  },
+  methods: {
+    getSignature() {
+      axios.post(this.signatureEndpoint, {
+        meetingNumber: this.meetingNumber,
+        role: this.role
+      })
+      .then(res => {
+        console.log(res.data.signature);
+        this.startMeeting(res.data.signature);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    },
+    startMeeting(signature) {
+      let meetingSDKElement = document.getElementById('meetingSDKElement');
+
+      this.client.init({
+        debug: true,
+        zoomAppRoot: meetingSDKElement,
+        language: 'en-US',
+        customize: {
+          meetingInfo: ['topic', 'host', 'mn', 'pwd', 'telPwd', 'invite', 'participant', 'dc', 'enctype'],
+          toolbar: {
+            buttons: [
+              {
+                text: 'Custom Button',
+                className: 'CustomButton',
+                onClick: () => {
+                  console.log('custom button');
+                }
+              }
+            ]
+          }
+        }
+      });
+
+      this.client.join({
+        sdkKey: this.sdkKey,
+        signature: signature,
+        meetingNumber: this.meetingNumber,
+        password: this.passWord,
+        userName: this.userName,
+        userEmail: this.userEmail,
+        tk: this.registrantToken
+      })
+    }
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+main {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+
+main button {
+  margin-top: 20px;
+  background-color: #2D8CFF;
+  color: #ffffff;
+  text-decoration: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: inline-block;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+main button:hover {
+  background-color: #2681F2;
+}
+
+#menu-list-icon-more > li:nth-child(1){
+  display: none !important;
+}
+</style>

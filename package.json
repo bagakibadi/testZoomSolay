@@ -7,7 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
+    "@zoomus/websdk": "^2.3.5",
+    "axios": "^0.27.1",
+    "core-js": "^3.22.2",
+    "is-svg": "^4.3.2",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1"
   },
