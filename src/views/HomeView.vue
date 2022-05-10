@@ -2,11 +2,12 @@
   <div class="bg-home">
 
     <!-- For Component View -->
-    <div class="head-top">
+    <div class="head-top shadow">
       <div class="d-flex">
         <div class="d-flex">
           <label class="mr-3" for="guru">Nama Guru :</label>
           <p class="pl-3">Guru Solay</p>
+          <!-- <button @click="test">Test</button> -->
         </div>
       </div>
     </div>
@@ -14,7 +15,7 @@
       <div id="meetingSDKElement">
         <!-- Zoom Meeting SDK Component View Rendered Here -->
       </div>
-      <div class="participant-view">
+      <div class="participant-view shadow">
         <div class="row mx-0 py-3">
           <div class="col-12" v-for="item in 3" :key="item.id">
             <div class="w-100 camera-view">
@@ -22,6 +23,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="chat-view">
+        <div id="meetingSDKChatElement"></div>
       </div>
     </div>
   </div>
@@ -34,7 +38,9 @@ import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 export default {
   name: 'HelloWorld',
   created () {
-    this.getSignature()
+    setTimeout(() => {
+      this.getSignature()
+    }, 200);
   },
   data () {
     return {
@@ -43,12 +49,12 @@ export default {
       // sdkKey: "cwJtHDrb3heoCThTlBaKmaroh9zVrqxBTgLY",//bagus
       sdkKey:"Jwdp8A1p7pur6gPlgugOPbkJhFqM4roRGOxl", //kp
       // sdkKey:"7kn90dOqRDuLxujbNFM7Ew", //API KEY
-      meetingNumber: "89779482681",
-      passWord: "123456",
-      role: 0,
+      meetingNumber: this.$route.query.meetingId,
+      passWord: this.$route.query.passwordMeeting,
+      role: this.$route.query.role,
       signatureEndpoint: "http://zoom.kelaspintar.co.id:4000/",
       userEmail: "",
-      userName: "Bagus Nur Solayman",
+      userName: this.$route.query.name,
       // pass in the registrant's token if your meeting or webinar requires registration. More info here:
       // Meetings: https://marketplace.zoom.us/docs/sdk/native-sdks/web/component-view/meetings#join-registered
       // Webinars: https://marketplace.zoom.us/docs/sdk/native-sdks/web/component-view/webinars#join-registered
@@ -56,6 +62,9 @@ export default {
     }
   },
   methods: {
+    test() {
+      console.log(this.client.getAttendeeslist())
+    },
     getSignature() {
       axios.post(this.signatureEndpoint, {
         meetingNumber: this.meetingNumber,
@@ -71,6 +80,7 @@ export default {
     },
     startMeeting(signature) {
       let meetingSDKElement = document.getElementById('meetingSDKElement');
+      let meetingSDKChatElement = document.getElementById('meetingSDKChatElement')
 
       this.client.init({
         debug: true,
@@ -88,6 +98,29 @@ export default {
                 }
               }
             ]
+          },
+          video: {
+            isResizable: false,
+            viewSizes: {
+              default: {
+                width: document.getElementById('meetingSDKElement').offsetWidth,
+                height: document.getElementById('meetingSDKElement').offsetHeight
+              },
+              ribbon: {
+                width: 300,
+                height: 700
+              }
+            },
+            popper: {
+              disableDraggable: true
+            }
+          },
+          chat: {
+            popper: {
+              disableDraggable: true,
+              anchorElement: meetingSDKChatElement,
+              placement: 'top'
+            }
           }
         }
       });
@@ -102,6 +135,9 @@ export default {
         tk: this.registrantToken
       })
     }
+  },
+  mounted() {
+    console.log(this.$route)
   }
 }
 </script>
@@ -109,10 +145,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #meetingSDKElement{
-  width: 75%;
+  width: 50%;
 }
 .bg-home{
-  background: #7a796f;
+  /* background: #7a796f; */
   padding: 50px;
 }
 .head-top{
@@ -134,11 +170,17 @@ export default {
   background: white;
   border-radius: 12px;
 }
+.chat-view{
+  width: 30%;
+}
 .camera-view{
   height: 100px;
   background: #333;
-  border-radius: 12px;
+  border-radius: 4px;
   margin-bottom: 20px;
+}
+.participant-view .col-12{
+  padding: 0 20px;
 }
 </style>
 <style>
