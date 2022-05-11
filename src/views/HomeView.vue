@@ -52,7 +52,7 @@ export default {
       meetingNumber: this.$route.query.meetingId,
       passWord: this.$route.query.passwordMeeting,
       role: this.$route.query.role,
-      signatureEndpoint: "http://zoom.kelaspintar.co.id:4000/",
+      signatureEndpoint: "https://zoom.kelaspintar.co.id:4000/",
       userEmail: "",
       userName: this.$route.query.name,
       // pass in the registrant's token if your meeting or webinar requires registration. More info here:
