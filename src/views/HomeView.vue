@@ -4,11 +4,11 @@
     <!-- For Component View -->
     <div class="head-top shadow">
       <div class="d-flex">
-        <div class="d-flex">
+        <!-- <div class="d-flex">
           <label class="mr-3" for="guru">Nama Guru :</label>
           <p class="pl-3">Guru Solay</p>
           <button @click="test">Test</button>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="flex-zoom">
