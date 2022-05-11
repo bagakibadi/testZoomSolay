@@ -20,7 +20,10 @@
                 </div>
                 <div class="form-group row align-items-center mx-0 mb-3">
                   <div class="col-4">
-                    <label for="idMeeting" class="">ID Meeting Zoom</label>
+                    <label for="idMeeting" class="">ID Meeting Zoom </label>
+                    <div>
+                      <small>Ex : 89779482681</small>
+                    </div>
                   </div>
                   <div class="col-8">
                     <input type="number" name="idMeeting" v-model="formInput.idMeeting" required placeholder="Masukkan Id Meeting" id="idMeeting" class="form-control">
@@ -29,6 +32,9 @@
                 <div class="form-group row align-items-center mx-0 mb-3">
                   <div class="col-4">
                     <label for="passwordMeeting" class="">Password Meeting Zoom</label>
+                    <div>
+                      <small>Ex: 123456</small>
+                    </div>
                   </div>
                   <div class="col-8">
                     <input type="password" v-model="formInput.passwordMeeting" name="passwordMeeting" required id="passwordMeeting" placeholder="Masukkan Password Meeting" class="form-control">

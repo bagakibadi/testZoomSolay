@@ -7,7 +7,7 @@
         <div class="d-flex">
           <label class="mr-3" for="guru">Nama Guru :</label>
           <p class="pl-3">Guru Solay</p>
-          <!-- <button @click="test">Test</button> -->
+          <button @click="test">Test</button>
         </div>
       </div>
     </div>
@@ -210,7 +210,4 @@ main button:hover {
   background-color: #2681F2;
 }
 
-#menu-list-icon-more > li:nth-child(1){
-  display: none !important;
-}
 </style>
