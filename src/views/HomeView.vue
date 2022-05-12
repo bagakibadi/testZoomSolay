@@ -134,9 +134,6 @@ export default {
         userEmail: this.userEmail,
         tk: this.registrantToken
       })
-      this.client.inMeetingServiceListener('onUserJoin', function (data) {
-        console.log('User Join', data);
-      });
     }
   },
   mounted() {
