@@ -12,6 +12,11 @@ const routes = [
     component: HomeView
   },
   {
+    path: '/frame',
+    name: 'Example Frame',
+    component: () => import('../views/Frame.vue')
+  },
+  {
     path: '/',
     name: 'Index',
     component: Index

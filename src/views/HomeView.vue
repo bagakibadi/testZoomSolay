@@ -71,7 +71,7 @@ export default {
         role: this.role
       })
       .then(res => {
-        console.log(res.data.signature);
+        console.log(res, 'abc');
         this.startMeeting(res.data.signature);
       })
       .catch(error => {
